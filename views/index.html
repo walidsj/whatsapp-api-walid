@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WhatsApp API by Walid</title>
+</head>
+<body>
+   <div id="app">
+      <h1>WhatsApp API</h1>
+      <p>Powered by Moh. Walid Arkham Sani.</p>
+      <img src="" alt="QR Code" id="qrcode" style="display: none;" />
+      <br />
+      <span id="logs" style="background-color: yellow; padding: 4px; border-radius: 4px;"></span>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js" integrity="sha512-AI5A3zIoeRSEEX9z3Vyir8NqSMC1pY7r5h2cE+9J6FLsoEmSSGLFaqMQw8SWvoONXogkfFrkQiJfLeHLz3+HOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+      <script>
+         $(document).ready(function() {
+            var socket = io();
+
+            socket.on('message', function(msg) {
+               $('#logs').text(msg);
+            });
+
+            socket.on('qr', function(src) {
+               $('#qrcode').attr('src', src);
+               $('#qrcode').show();
+            });
+
+            socket.on('ready', function(data) {
+               $('#qrcode').hide();
+            });
+
+            socket.on('authenticated', function(data) {
+               $('#qrcode').hide();
+            });
+         });
+      </script>
+   </div>
+</body>
+</html>
